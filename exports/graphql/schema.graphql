@@ -1,0 +1,2090 @@
+type UsersPermissionsMe {
+  id: ID!
+  username: String!
+  email: String!
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+input UsersPermissionsRegisterInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input UsersPermissionsLoginInput {
+  identifier: String!
+  password: String!
+  provider: String = "local"
+}
+
+type UsersPermissionsLoginPayload {
+  jwt: String
+  user: UsersPermissionsMe!
+}
+
+type UserPermissionsPasswordPayload {
+  ok: Boolean!
+}
+
+input FileInfoInput {
+  name: String
+  alternativeText: String
+  caption: String
+}
+
+type Companies {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  company_name: String
+  company_id: Long
+  company_api: String
+  published_at: DateTime
+}
+
+type CompaniesConnection {
+  values: [Companies]
+  groupBy: CompaniesGroupBy
+  aggregate: CompaniesAggregator
+}
+
+type CompaniesAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type CompaniesGroupBy {
+  id: [CompaniesConnectionId]
+  _id: [CompaniesConnection_id]
+  createdAt: [CompaniesConnectionCreatedAt]
+  updatedAt: [CompaniesConnectionUpdatedAt]
+  company_name: [CompaniesConnectionCompany_name]
+  company_id: [CompaniesConnectionCompany_id]
+  company_api: [CompaniesConnectionCompany_api]
+  published_at: [CompaniesConnectionPublished_at]
+}
+
+type CompaniesConnectionId {
+  key: ID
+  connection: CompaniesConnection
+}
+
+type CompaniesConnection_id {
+  key: ID
+  connection: CompaniesConnection
+}
+
+type CompaniesConnectionCreatedAt {
+  key: DateTime
+  connection: CompaniesConnection
+}
+
+type CompaniesConnectionUpdatedAt {
+  key: DateTime
+  connection: CompaniesConnection
+}
+
+type CompaniesConnectionCompany_name {
+  key: String
+  connection: CompaniesConnection
+}
+
+type CompaniesConnectionCompany_id {
+  key: ID
+  connection: CompaniesConnection
+}
+
+type CompaniesConnectionCompany_api {
+  key: String
+  connection: CompaniesConnection
+}
+
+type CompaniesConnectionPublished_at {
+  key: DateTime
+  connection: CompaniesConnection
+}
+
+input CompanyInput {
+  company_name: String
+  company_id: Long
+  company_api: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editCompanyInput {
+  company_name: String
+  company_id: Long
+  company_api: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createCompanyInput {
+  data: CompanyInput
+}
+
+type createCompanyPayload {
+  company: Companies
+}
+
+input updateCompanyInput {
+  where: InputID
+  data: editCompanyInput
+}
+
+type updateCompanyPayload {
+  company: Companies
+}
+
+input deleteCompanyInput {
+  where: InputID
+}
+
+type deleteCompanyPayload {
+  company: Companies
+}
+
+type Global {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  metadata: ComponentMetaMetadata
+  metaTitleSuffix: String!
+  favicon: UploadFile
+  notificationBanner: ComponentElementsNotificationBanner
+  navbar: ComponentLayoutNavbar
+  footer: ComponentLayoutFooter
+  locale: String
+  localizations(sort: String, limit: Int, start: Int, where: JSON): [Global]
+}
+
+input GlobalInput {
+  metadata: ComponentMetaMetadatumInput
+  metaTitleSuffix: String!
+  favicon: ID
+  notificationBanner: ComponentElementsNotificationBannerInput
+  navbar: ComponentLayoutNavbarInput
+  footer: ComponentLayoutFooterInput
+  localizations: [ID]
+  locale: String
+  created_by: ID
+  updated_by: ID
+}
+
+input editGlobalInput {
+  metadata: editComponentMetaMetadatumInput
+  metaTitleSuffix: String
+  favicon: ID
+  notificationBanner: editComponentElementsNotificationBannerInput
+  navbar: editComponentLayoutNavbarInput
+  footer: editComponentLayoutFooterInput
+  localizations: [ID]
+  locale: String
+  created_by: ID
+  updated_by: ID
+}
+
+input updateGlobalInput {
+  data: editGlobalInput
+}
+
+type updateGlobalPayload {
+  global: Global
+}
+
+type deleteGlobalPayload {
+  global: Global
+}
+
+type Holdings {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  holding_acquire: String!
+  asset_type: String!
+  numberof_shares: Long
+  share_price: Float
+  holding_purchase_date: Date
+  company: Companies
+  users_permissions_user: UsersPermissionsUser
+  published_at: DateTime
+}
+
+type HoldingsConnection {
+  values: [Holdings]
+  groupBy: HoldingsGroupBy
+  aggregate: HoldingsAggregator
+}
+
+type HoldingsAggregator {
+  count: Int
+  totalCount: Int
+  sum: HoldingsAggregatorSum
+  avg: HoldingsAggregatorAvg
+  min: HoldingsAggregatorMin
+  max: HoldingsAggregatorMax
+}
+
+type HoldingsAggregatorSum {
+  share_price: Float
+}
+
+type HoldingsAggregatorAvg {
+  share_price: Float
+}
+
+type HoldingsAggregatorMin {
+  share_price: Float
+}
+
+type HoldingsAggregatorMax {
+  share_price: Float
+}
+
+type HoldingsGroupBy {
+  id: [HoldingsConnectionId]
+  _id: [HoldingsConnection_id]
+  createdAt: [HoldingsConnectionCreatedAt]
+  updatedAt: [HoldingsConnectionUpdatedAt]
+  holding_acquire: [HoldingsConnectionHolding_acquire]
+  asset_type: [HoldingsConnectionAsset_type]
+  numberof_shares: [HoldingsConnectionNumberof_shares]
+  share_price: [HoldingsConnectionShare_price]
+  holding_purchase_date: [HoldingsConnectionHolding_purchase_date]
+  company: [HoldingsConnectionCompany]
+  users_permissions_user: [HoldingsConnectionUsers_permissions_user]
+  published_at: [HoldingsConnectionPublished_at]
+}
+
+type HoldingsConnectionId {
+  key: ID
+  connection: HoldingsConnection
+}
+
+type HoldingsConnection_id {
+  key: ID
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionCreatedAt {
+  key: DateTime
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionUpdatedAt {
+  key: DateTime
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionHolding_acquire {
+  key: String
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionAsset_type {
+  key: String
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionNumberof_shares {
+  key: ID
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionShare_price {
+  key: Float
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionHolding_purchase_date {
+  key: ID
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionCompany {
+  key: ID
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionUsers_permissions_user {
+  key: ID
+  connection: HoldingsConnection
+}
+
+type HoldingsConnectionPublished_at {
+  key: DateTime
+  connection: HoldingsConnection
+}
+
+input HoldingInput {
+  holding_acquire: String!
+  asset_type: String!
+  numberof_shares: Long
+  share_price: Float
+  holding_purchase_date: Date
+  company: ID
+  users_permissions_user: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editHoldingInput {
+  holding_acquire: String
+  asset_type: String
+  numberof_shares: Long
+  share_price: Float
+  holding_purchase_date: Date
+  company: ID
+  users_permissions_user: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createHoldingInput {
+  data: HoldingInput
+}
+
+type createHoldingPayload {
+  holding: Holdings
+}
+
+input updateHoldingInput {
+  where: InputID
+  data: editHoldingInput
+}
+
+type updateHoldingPayload {
+  holding: Holdings
+}
+
+input deleteHoldingInput {
+  where: InputID
+}
+
+type deleteHoldingPayload {
+  holding: Holdings
+}
+
+enum ENUM_LEADFORMSUBMISSIONS_STATUS {
+  seen
+  contacted
+  ignored
+}
+
+type LeadFormSubmissions {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String
+  status: ENUM_LEADFORMSUBMISSIONS_STATUS
+  location: String
+}
+
+type LeadFormSubmissionsConnection {
+  values: [LeadFormSubmissions]
+  groupBy: LeadFormSubmissionsGroupBy
+  aggregate: LeadFormSubmissionsAggregator
+}
+
+type LeadFormSubmissionsAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type LeadFormSubmissionsGroupBy {
+  id: [LeadFormSubmissionsConnectionId]
+  _id: [LeadFormSubmissionsConnection_id]
+  createdAt: [LeadFormSubmissionsConnectionCreatedAt]
+  updatedAt: [LeadFormSubmissionsConnectionUpdatedAt]
+  email: [LeadFormSubmissionsConnectionEmail]
+  status: [LeadFormSubmissionsConnectionStatus]
+  location: [LeadFormSubmissionsConnectionLocation]
+}
+
+type LeadFormSubmissionsConnectionId {
+  key: ID
+  connection: LeadFormSubmissionsConnection
+}
+
+type LeadFormSubmissionsConnection_id {
+  key: ID
+  connection: LeadFormSubmissionsConnection
+}
+
+type LeadFormSubmissionsConnectionCreatedAt {
+  key: DateTime
+  connection: LeadFormSubmissionsConnection
+}
+
+type LeadFormSubmissionsConnectionUpdatedAt {
+  key: DateTime
+  connection: LeadFormSubmissionsConnection
+}
+
+type LeadFormSubmissionsConnectionEmail {
+  key: String
+  connection: LeadFormSubmissionsConnection
+}
+
+type LeadFormSubmissionsConnectionStatus {
+  key: String
+  connection: LeadFormSubmissionsConnection
+}
+
+type LeadFormSubmissionsConnectionLocation {
+  key: String
+  connection: LeadFormSubmissionsConnection
+}
+
+input LeadFormSubmissionInput {
+  email: String
+  status: ENUM_LEADFORMSUBMISSIONS_STATUS
+  location: String
+  created_by: ID
+  updated_by: ID
+}
+
+input editLeadFormSubmissionInput {
+  email: String
+  status: ENUM_LEADFORMSUBMISSIONS_STATUS
+  location: String
+  created_by: ID
+  updated_by: ID
+}
+
+input createLeadFormSubmissionInput {
+  data: LeadFormSubmissionInput
+}
+
+type createLeadFormSubmissionPayload {
+  leadFormSubmission: LeadFormSubmissions
+}
+
+input updateLeadFormSubmissionInput {
+  where: InputID
+  data: editLeadFormSubmissionInput
+}
+
+type updateLeadFormSubmissionPayload {
+  leadFormSubmission: LeadFormSubmissions
+}
+
+input deleteLeadFormSubmissionInput {
+  where: InputID
+}
+
+type deleteLeadFormSubmissionPayload {
+  leadFormSubmission: LeadFormSubmissions
+}
+
+type Orders {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  order_id: String!
+  order_type: String!
+  order_interest: String
+  order_pricing_type: String!
+  share_price: Float
+  numberof_shares: Float!
+  order_status: Int
+  company: Companies
+  user: UsersPermissionsUser
+  published_at: DateTime
+}
+
+type OrdersConnection {
+  values: [Orders]
+  groupBy: OrdersGroupBy
+  aggregate: OrdersAggregator
+}
+
+type OrdersAggregator {
+  count: Int
+  totalCount: Int
+  sum: OrdersAggregatorSum
+  avg: OrdersAggregatorAvg
+  min: OrdersAggregatorMin
+  max: OrdersAggregatorMax
+}
+
+type OrdersAggregatorSum {
+  share_price: Float
+  numberof_shares: Float
+  order_status: Float
+}
+
+type OrdersAggregatorAvg {
+  share_price: Float
+  numberof_shares: Float
+  order_status: Float
+}
+
+type OrdersAggregatorMin {
+  share_price: Float
+  numberof_shares: Float
+  order_status: Float
+}
+
+type OrdersAggregatorMax {
+  share_price: Float
+  numberof_shares: Float
+  order_status: Float
+}
+
+type OrdersGroupBy {
+  id: [OrdersConnectionId]
+  _id: [OrdersConnection_id]
+  createdAt: [OrdersConnectionCreatedAt]
+  updatedAt: [OrdersConnectionUpdatedAt]
+  order_id: [OrdersConnectionOrder_id]
+  order_type: [OrdersConnectionOrder_type]
+  order_interest: [OrdersConnectionOrder_interest]
+  order_pricing_type: [OrdersConnectionOrder_pricing_type]
+  share_price: [OrdersConnectionShare_price]
+  numberof_shares: [OrdersConnectionNumberof_shares]
+  order_status: [OrdersConnectionOrder_status]
+  company: [OrdersConnectionCompany]
+  user: [OrdersConnectionUser]
+  published_at: [OrdersConnectionPublished_at]
+}
+
+type OrdersConnectionId {
+  key: ID
+  connection: OrdersConnection
+}
+
+type OrdersConnection_id {
+  key: ID
+  connection: OrdersConnection
+}
+
+type OrdersConnectionCreatedAt {
+  key: DateTime
+  connection: OrdersConnection
+}
+
+type OrdersConnectionUpdatedAt {
+  key: DateTime
+  connection: OrdersConnection
+}
+
+type OrdersConnectionOrder_id {
+  key: String
+  connection: OrdersConnection
+}
+
+type OrdersConnectionOrder_type {
+  key: String
+  connection: OrdersConnection
+}
+
+type OrdersConnectionOrder_interest {
+  key: String
+  connection: OrdersConnection
+}
+
+type OrdersConnectionOrder_pricing_type {
+  key: String
+  connection: OrdersConnection
+}
+
+type OrdersConnectionShare_price {
+  key: Float
+  connection: OrdersConnection
+}
+
+type OrdersConnectionNumberof_shares {
+  key: Float
+  connection: OrdersConnection
+}
+
+type OrdersConnectionOrder_status {
+  key: Int
+  connection: OrdersConnection
+}
+
+type OrdersConnectionCompany {
+  key: ID
+  connection: OrdersConnection
+}
+
+type OrdersConnectionUser {
+  key: ID
+  connection: OrdersConnection
+}
+
+type OrdersConnectionPublished_at {
+  key: DateTime
+  connection: OrdersConnection
+}
+
+input OrderInput {
+  order_id: String!
+  order_type: String!
+  order_interest: String
+  order_pricing_type: String!
+  share_price: Float
+  numberof_shares: Float!
+  order_status: Int
+  company: ID
+  user: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editOrderInput {
+  order_id: String
+  order_type: String
+  order_interest: String
+  order_pricing_type: String
+  share_price: Float
+  numberof_shares: Float
+  order_status: Int
+  company: ID
+  user: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createOrderInput {
+  data: OrderInput
+}
+
+type createOrderPayload {
+  order: Orders
+}
+
+input updateOrderInput {
+  where: InputID
+  data: editOrderInput
+}
+
+type updateOrderPayload {
+  order: Orders
+}
+
+input deleteOrderInput {
+  where: InputID
+}
+
+type deleteOrderPayload {
+  order: Orders
+}
+
+enum ENUM_PAGE_STATUS {
+  published
+  draft
+}
+
+union PageContentSectionsDynamicZone = ComponentSectionsHero | ComponentSectionsBottomActions | ComponentSectionsFeatureColumnsGroup | ComponentSectionsFeatureRowsGroup | ComponentSectionsTestimonialsGroup | ComponentSectionsLargeVideo | ComponentSectionsRichText | ComponentSectionsPricing | ComponentSectionsLeadForm
+
+"""Input type for dynamic zone contentSections of Page"""
+scalar PageContentSectionsDynamicZoneInput
+
+type Page {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  shortName: String
+  metadata: ComponentMetaMetadata
+  contentSections: [PageContentSectionsDynamicZone]
+  status: ENUM_PAGE_STATUS!
+  slug: String
+  locale: String
+  localizations(sort: String, limit: Int, start: Int, where: JSON): [Page]
+}
+
+type PageConnection {
+  values: [Page]
+  groupBy: PageGroupBy
+  aggregate: PageAggregator
+}
+
+type PageAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type PageGroupBy {
+  id: [PageConnectionId]
+  _id: [PageConnection_id]
+  createdAt: [PageConnectionCreatedAt]
+  updatedAt: [PageConnectionUpdatedAt]
+  shortName: [PageConnectionShortName]
+  metadata: [PageConnectionMetadata]
+  status: [PageConnectionStatus]
+  slug: [PageConnectionSlug]
+  locale: [PageConnectionLocale]
+}
+
+type PageConnectionId {
+  key: ID
+  connection: PageConnection
+}
+
+type PageConnection_id {
+  key: ID
+  connection: PageConnection
+}
+
+type PageConnectionCreatedAt {
+  key: DateTime
+  connection: PageConnection
+}
+
+type PageConnectionUpdatedAt {
+  key: DateTime
+  connection: PageConnection
+}
+
+type PageConnectionShortName {
+  key: String
+  connection: PageConnection
+}
+
+type PageConnectionMetadata {
+  key: ID
+  connection: PageConnection
+}
+
+type PageConnectionStatus {
+  key: String
+  connection: PageConnection
+}
+
+type PageConnectionSlug {
+  key: String
+  connection: PageConnection
+}
+
+type PageConnectionLocale {
+  key: String
+  connection: PageConnection
+}
+
+input PageInput {
+  shortName: String
+  metadata: ComponentMetaMetadatumInput!
+  contentSections: [PageContentSectionsDynamicZoneInput!]
+  status: ENUM_PAGE_STATUS
+  slug: String
+  localizations: [ID]
+  locale: String
+  created_by: ID
+  updated_by: ID
+}
+
+input editPageInput {
+  shortName: String
+  metadata: editComponentMetaMetadatumInput
+  contentSections: [PageContentSectionsDynamicZoneInput!]
+  status: ENUM_PAGE_STATUS
+  slug: String
+  localizations: [ID]
+  locale: String
+  created_by: ID
+  updated_by: ID
+}
+
+input createPageInput {
+  data: PageInput
+}
+
+type createPagePayload {
+  page: Page
+}
+
+input updatePageInput {
+  where: InputID
+  data: editPageInput
+}
+
+type updatePagePayload {
+  page: Page
+}
+
+input deletePageInput {
+  where: InputID
+}
+
+type deletePagePayload {
+  page: Page
+}
+
+type Watchlist {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  company: Companies
+  user: UsersPermissionsUser
+  published_at: DateTime
+}
+
+type WatchlistConnection {
+  values: [Watchlist]
+  groupBy: WatchlistGroupBy
+  aggregate: WatchlistAggregator
+}
+
+type WatchlistAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type WatchlistGroupBy {
+  id: [WatchlistConnectionId]
+  _id: [WatchlistConnection_id]
+  createdAt: [WatchlistConnectionCreatedAt]
+  updatedAt: [WatchlistConnectionUpdatedAt]
+  company: [WatchlistConnectionCompany]
+  user: [WatchlistConnectionUser]
+  published_at: [WatchlistConnectionPublished_at]
+}
+
+type WatchlistConnectionId {
+  key: ID
+  connection: WatchlistConnection
+}
+
+type WatchlistConnection_id {
+  key: ID
+  connection: WatchlistConnection
+}
+
+type WatchlistConnectionCreatedAt {
+  key: DateTime
+  connection: WatchlistConnection
+}
+
+type WatchlistConnectionUpdatedAt {
+  key: DateTime
+  connection: WatchlistConnection
+}
+
+type WatchlistConnectionCompany {
+  key: ID
+  connection: WatchlistConnection
+}
+
+type WatchlistConnectionUser {
+  key: ID
+  connection: WatchlistConnection
+}
+
+type WatchlistConnectionPublished_at {
+  key: DateTime
+  connection: WatchlistConnection
+}
+
+input WatchlistInput {
+  company: ID
+  user: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editWatchlistInput {
+  company: ID
+  user: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createWatchlistInput {
+  data: WatchlistInput
+}
+
+type createWatchlistPayload {
+  watchlist: Watchlist
+}
+
+input updateWatchlistInput {
+  where: InputID
+  data: editWatchlistInput
+}
+
+type updateWatchlistPayload {
+  watchlist: Watchlist
+}
+
+input deleteWatchlistInput {
+  where: InputID
+}
+
+type deleteWatchlistPayload {
+  watchlist: Watchlist
+}
+
+type UsersPermissionsPermission {
+  id: ID!
+  _id: ID!
+  type: String!
+  controller: String!
+  action: String!
+  enabled: Boolean!
+  policy: String
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsRole {
+  id: ID!
+  _id: ID!
+  name: String!
+  description: String
+  type: String
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsRoleConnection {
+  values: [UsersPermissionsRole]
+  groupBy: UsersPermissionsRoleGroupBy
+  aggregate: UsersPermissionsRoleAggregator
+}
+
+type UsersPermissionsRoleAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UsersPermissionsRoleGroupBy {
+  id: [UsersPermissionsRoleConnectionId]
+  _id: [UsersPermissionsRoleConnection_id]
+  name: [UsersPermissionsRoleConnectionName]
+  description: [UsersPermissionsRoleConnectionDescription]
+  type: [UsersPermissionsRoleConnectionType]
+}
+
+type UsersPermissionsRoleConnectionId {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnection_id {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionName {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionDescription {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionType {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+input RoleInput {
+  name: String!
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input editRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input createRoleInput {
+  data: RoleInput
+}
+
+type createRolePayload {
+  role: UsersPermissionsRole
+}
+
+input updateRoleInput {
+  where: InputID
+  data: editRoleInput
+}
+
+type updateRolePayload {
+  role: UsersPermissionsRole
+}
+
+input deleteRoleInput {
+  where: InputID
+}
+
+type deleteRolePayload {
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsUser {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  username: String!
+  email: String!
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRole
+  phone: String
+}
+
+type UsersPermissionsUserConnection {
+  values: [UsersPermissionsUser]
+  groupBy: UsersPermissionsUserGroupBy
+  aggregate: UsersPermissionsUserAggregator
+}
+
+type UsersPermissionsUserAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UsersPermissionsUserGroupBy {
+  id: [UsersPermissionsUserConnectionId]
+  _id: [UsersPermissionsUserConnection_id]
+  createdAt: [UsersPermissionsUserConnectionCreatedAt]
+  updatedAt: [UsersPermissionsUserConnectionUpdatedAt]
+  username: [UsersPermissionsUserConnectionUsername]
+  email: [UsersPermissionsUserConnectionEmail]
+  provider: [UsersPermissionsUserConnectionProvider]
+  confirmed: [UsersPermissionsUserConnectionConfirmed]
+  blocked: [UsersPermissionsUserConnectionBlocked]
+  role: [UsersPermissionsUserConnectionRole]
+  phone: [UsersPermissionsUserConnectionPhone]
+}
+
+type UsersPermissionsUserConnectionId {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnection_id {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionCreatedAt {
+  key: DateTime
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUpdatedAt {
+  key: DateTime
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUsername {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionEmail {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionProvider {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionConfirmed {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionBlocked {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionRole {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionPhone {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmationToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  phone: String
+  created_by: ID
+  updated_by: ID
+}
+
+input editUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmationToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  phone: String
+  created_by: ID
+  updated_by: ID
+}
+
+input createUserInput {
+  data: UserInput
+}
+
+type createUserPayload {
+  user: UsersPermissionsUser
+}
+
+input updateUserInput {
+  where: InputID
+  data: editUserInput
+}
+
+type updateUserPayload {
+  user: UsersPermissionsUser
+}
+
+input deleteUserInput {
+  where: InputID
+}
+
+type deleteUserPayload {
+  user: UsersPermissionsUser
+}
+
+type UploadFile {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String!
+  ext: String
+  mime: String!
+  size: Float!
+  url: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+type UploadFileConnection {
+  values: [UploadFile]
+  groupBy: UploadFileGroupBy
+  aggregate: UploadFileAggregator
+}
+
+type UploadFileAggregator {
+  count: Int
+  totalCount: Int
+  sum: UploadFileAggregatorSum
+  avg: UploadFileAggregatorAvg
+  min: UploadFileAggregatorMin
+  max: UploadFileAggregatorMax
+}
+
+type UploadFileAggregatorSum {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileAggregatorAvg {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileAggregatorMin {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileAggregatorMax {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileGroupBy {
+  id: [UploadFileConnectionId]
+  _id: [UploadFileConnection_id]
+  createdAt: [UploadFileConnectionCreatedAt]
+  updatedAt: [UploadFileConnectionUpdatedAt]
+  name: [UploadFileConnectionName]
+  alternativeText: [UploadFileConnectionAlternativeText]
+  caption: [UploadFileConnectionCaption]
+  width: [UploadFileConnectionWidth]
+  height: [UploadFileConnectionHeight]
+  formats: [UploadFileConnectionFormats]
+  hash: [UploadFileConnectionHash]
+  ext: [UploadFileConnectionExt]
+  mime: [UploadFileConnectionMime]
+  size: [UploadFileConnectionSize]
+  url: [UploadFileConnectionUrl]
+  previewUrl: [UploadFileConnectionPreviewUrl]
+  provider: [UploadFileConnectionProvider]
+  provider_metadata: [UploadFileConnectionProvider_metadata]
+}
+
+type UploadFileConnectionId {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnection_id {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCreatedAt {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUpdatedAt {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionName {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionAlternativeText {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCaption {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionWidth {
+  key: Int
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionHeight {
+  key: Int
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionFormats {
+  key: JSON
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionHash {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionExt {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionMime {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionSize {
+  key: Float
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUrl {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionPreviewUrl {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionProvider {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionProvider_metadata {
+  key: JSON
+  connection: UploadFileConnection
+}
+
+input FileInput {
+  name: String!
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String!
+  ext: String
+  mime: String!
+  size: Float!
+  url: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  related: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input editFileInput {
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  previewUrl: String
+  provider: String
+  provider_metadata: JSON
+  related: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input deleteFileInput {
+  where: InputID
+}
+
+type deleteFilePayload {
+  file: UploadFile
+}
+
+type I18NLocale {
+  id: ID!
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
+  code: String
+}
+
+input LocaleInput {
+  name: String
+  code: String
+  created_by: ID
+  updated_by: ID
+}
+
+input editLocaleInput {
+  name: String
+  code: String
+  created_by: ID
+  updated_by: ID
+}
+
+type ComponentElementsFeatureColumn {
+  id: ID!
+  _id: ID!
+  title: String!
+  description: String
+  icon: UploadFile
+}
+
+input ComponentElementsFeatureColumnInput {
+  title: String!
+  description: String
+  icon: ID
+}
+
+input editComponentElementsFeatureColumnInput {
+  id: ID
+  title: String
+  description: String
+  icon: ID
+}
+
+type ComponentElementsFeatureRow {
+  id: ID!
+  _id: ID!
+  title: String!
+  description: String
+  media: UploadFile
+  link: ComponentLinksLink
+}
+
+input ComponentElementsFeatureRowInput {
+  title: String!
+  description: String
+  media: ID
+  link: ComponentLinksLinkInput
+}
+
+input editComponentElementsFeatureRowInput {
+  id: ID
+  title: String
+  description: String
+  media: ID
+  link: editComponentLinksLinkInput
+}
+
+type ComponentElementsFeature {
+  id: ID!
+  _id: ID!
+  name: String
+}
+
+input ComponentElementsFeatureInput {
+  name: String
+}
+
+input editComponentElementsFeatureInput {
+  id: ID
+  name: String
+}
+
+type ComponentElementsFooterSection {
+  id: ID!
+  _id: ID!
+  title: String
+  links: [ComponentLinksLink]
+}
+
+input ComponentElementsFooterSectionInput {
+  title: String
+  links: [ComponentLinksLinkInput]
+}
+
+input editComponentElementsFooterSectionInput {
+  id: ID
+  title: String
+  links: [editComponentLinksLinkInput]
+}
+
+type ComponentElementsLogos {
+  id: ID!
+  _id: ID!
+  title: String
+  logo: UploadFile
+}
+
+input ComponentElementsLogoInput {
+  title: String
+  logo: ID
+}
+
+input editComponentElementsLogoInput {
+  id: ID
+  title: String
+  logo: ID
+}
+
+enum ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE {
+  alert
+  info
+  warning
+}
+
+type ComponentElementsNotificationBanner {
+  id: ID!
+  _id: ID!
+  text: String
+  type: ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE!
+}
+
+input ComponentElementsNotificationBannerInput {
+  text: String
+  type: ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE!
+}
+
+input editComponentElementsNotificationBannerInput {
+  id: ID
+  text: String
+  type: ENUM_COMPONENTELEMENTSNOTIFICATIONBANNER_TYPE
+}
+
+type ComponentElementsPlan {
+  id: ID!
+  _id: ID!
+  name: String
+  description: String
+  features: [ComponentElementsFeature]
+  isRecommended: Boolean
+  price: Float
+  pricePeriod: String
+}
+
+input ComponentElementsPlanInput {
+  name: String
+  description: String
+  features: [ComponentElementsFeatureInput]
+  isRecommended: Boolean
+  price: Float
+  pricePeriod: String
+}
+
+input editComponentElementsPlanInput {
+  id: ID
+  name: String
+  description: String
+  features: [editComponentElementsFeatureInput]
+  isRecommended: Boolean
+  price: Float
+  pricePeriod: String
+}
+
+type ComponentElementsTestimonial {
+  id: ID!
+  _id: ID!
+  logo: UploadFile
+  picture: UploadFile
+  text: String
+  authorName: String
+  authorTitle: String
+  link: String
+}
+
+input ComponentElementsTestimonialInput {
+  logo: ID
+  picture: ID
+  text: String
+  authorName: String
+  authorTitle: String
+  link: String
+}
+
+input editComponentElementsTestimonialInput {
+  id: ID
+  logo: ID
+  picture: ID
+  text: String
+  authorName: String
+  authorTitle: String
+  link: String
+}
+
+type ComponentLayoutFooter {
+  id: ID!
+  _id: ID!
+  logo: UploadFile
+  columns: [ComponentElementsFooterSection]
+  smallText: String
+}
+
+input ComponentLayoutFooterInput {
+  logo: ID
+  columns: [ComponentElementsFooterSectionInput]
+  smallText: String
+}
+
+input editComponentLayoutFooterInput {
+  id: ID
+  logo: ID
+  columns: [editComponentElementsFooterSectionInput]
+  smallText: String
+}
+
+type ComponentLayoutNavbar {
+  id: ID!
+  _id: ID!
+  links: [ComponentLinksLink]
+  button: ComponentLinksButtonLink
+  logo: UploadFile
+}
+
+input ComponentLayoutNavbarInput {
+  links: [ComponentLinksLinkInput]
+  button: ComponentLinksButtonLinkInput
+  logo: ID
+}
+
+input editComponentLayoutNavbarInput {
+  id: ID
+  links: [editComponentLinksLinkInput]
+  button: editComponentLinksButtonLinkInput
+  logo: ID
+}
+
+enum ENUM_COMPONENTLINKSBUTTONLINK_TYPE {
+  primary
+  secondary
+}
+
+type ComponentLinksButtonLink {
+  id: ID!
+  _id: ID!
+  url: String
+  newTab: Boolean
+  text: String
+  type: ENUM_COMPONENTLINKSBUTTONLINK_TYPE
+}
+
+input ComponentLinksButtonLinkInput {
+  url: String
+  newTab: Boolean
+  text: String
+  type: ENUM_COMPONENTLINKSBUTTONLINK_TYPE
+}
+
+input editComponentLinksButtonLinkInput {
+  id: ID
+  url: String
+  newTab: Boolean
+  text: String
+  type: ENUM_COMPONENTLINKSBUTTONLINK_TYPE
+}
+
+enum ENUM_COMPONENTLINKSBUTTON_TYPE {
+  primary
+  secondary
+}
+
+type ComponentLinksButton {
+  id: ID!
+  _id: ID!
+  text: String
+  type: ENUM_COMPONENTLINKSBUTTON_TYPE
+}
+
+input ComponentLinksButtonInput {
+  text: String
+  type: ENUM_COMPONENTLINKSBUTTON_TYPE
+}
+
+input editComponentLinksButtonInput {
+  id: ID
+  text: String
+  type: ENUM_COMPONENTLINKSBUTTON_TYPE
+}
+
+type ComponentLinksLink {
+  id: ID!
+  _id: ID!
+  url: String!
+  newTab: Boolean
+  text: String!
+}
+
+input ComponentLinksLinkInput {
+  url: String!
+  newTab: Boolean
+  text: String!
+}
+
+input editComponentLinksLinkInput {
+  id: ID
+  url: String
+  newTab: Boolean
+  text: String
+}
+
+enum ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE {
+  summary
+  summary_large_image
+  app
+  player
+}
+
+type ComponentMetaMetadata {
+  id: ID!
+  _id: ID!
+  metaTitle: String!
+  metaDescription: String!
+  shareImage: UploadFile
+  twitterCardType: ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE
+  twitterUsername: String
+}
+
+input ComponentMetaMetadatumInput {
+  metaTitle: String!
+  metaDescription: String!
+  shareImage: ID
+  twitterCardType: ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE
+  twitterUsername: String
+}
+
+input editComponentMetaMetadatumInput {
+  id: ID
+  metaTitle: String
+  metaDescription: String
+  shareImage: ID
+  twitterCardType: ENUM_COMPONENTMETAMETADATA_TWITTERCARDTYPE
+  twitterUsername: String
+}
+
+type ComponentSectionsBottomActions {
+  id: ID!
+  _id: ID!
+  title: String
+  buttons: [ComponentLinksButtonLink]
+}
+
+input ComponentSectionsBottomActionInput {
+  title: String
+  buttons: [ComponentLinksButtonLinkInput]
+}
+
+input editComponentSectionsBottomActionInput {
+  id: ID
+  title: String
+  buttons: [editComponentLinksButtonLinkInput]
+}
+
+type ComponentSectionsFeatureColumnsGroup {
+  id: ID!
+  _id: ID!
+  features: [ComponentElementsFeatureColumn]
+}
+
+input ComponentSectionsFeatureColumnsGroupInput {
+  features: [ComponentElementsFeatureColumnInput]
+}
+
+input editComponentSectionsFeatureColumnsGroupInput {
+  id: ID
+  features: [editComponentElementsFeatureColumnInput]
+}
+
+type ComponentSectionsFeatureRowsGroup {
+  id: ID!
+  _id: ID!
+  features: [ComponentElementsFeatureRow]
+}
+
+input ComponentSectionsFeatureRowsGroupInput {
+  features: [ComponentElementsFeatureRowInput]
+}
+
+input editComponentSectionsFeatureRowsGroupInput {
+  id: ID
+  features: [editComponentElementsFeatureRowInput]
+}
+
+type ComponentSectionsHero {
+  id: ID!
+  _id: ID!
+  title: String
+  label: String
+  description: String
+  picture: UploadFile
+  smallTextWithLink: String
+  buttons: [ComponentLinksButtonLink]
+}
+
+input ComponentSectionsHeroInput {
+  title: String
+  label: String
+  description: String
+  picture: ID
+  smallTextWithLink: String
+  buttons: [ComponentLinksButtonLinkInput]
+}
+
+input editComponentSectionsHeroInput {
+  id: ID
+  title: String
+  label: String
+  description: String
+  picture: ID
+  smallTextWithLink: String
+  buttons: [editComponentLinksButtonLinkInput]
+}
+
+type ComponentSectionsLargeVideo {
+  id: ID!
+  _id: ID!
+  title: String
+  description: String
+  video: UploadFile
+  poster: UploadFile
+}
+
+input ComponentSectionsLargeVideoInput {
+  title: String
+  description: String
+  video: ID
+  poster: ID
+}
+
+input editComponentSectionsLargeVideoInput {
+  id: ID
+  title: String
+  description: String
+  video: ID
+  poster: ID
+}
+
+type ComponentSectionsLeadForm {
+  id: ID!
+  _id: ID!
+  title: String
+  emailPlaceholder: String
+  submitButton: ComponentLinksButton
+  location: String
+}
+
+input ComponentSectionsLeadFormInput {
+  title: String
+  emailPlaceholder: String
+  submitButton: ComponentLinksButtonInput
+  location: String
+}
+
+input editComponentSectionsLeadFormInput {
+  id: ID
+  title: String
+  emailPlaceholder: String
+  submitButton: editComponentLinksButtonInput
+  location: String
+}
+
+type ComponentSectionsPricing {
+  id: ID!
+  _id: ID!
+  title: String
+  plans: [ComponentElementsPlan]
+}
+
+input ComponentSectionsPricingInput {
+  title: String
+  plans: [ComponentElementsPlanInput]
+}
+
+input editComponentSectionsPricingInput {
+  id: ID
+  title: String
+  plans: [editComponentElementsPlanInput]
+}
+
+type ComponentSectionsRichText {
+  id: ID!
+  _id: ID!
+  content: String
+}
+
+input ComponentSectionsRichTextInput {
+  content: String
+}
+
+input editComponentSectionsRichTextInput {
+  id: ID
+  content: String
+}
+
+type ComponentSectionsTestimonialsGroup {
+  id: ID!
+  _id: ID!
+  title: String
+  description: String
+  link: ComponentLinksLink
+  logos: [ComponentElementsLogos]
+  testimonials: [ComponentElementsTestimonial]
+}
+
+input ComponentSectionsTestimonialsGroupInput {
+  title: String
+  description: String
+  link: ComponentLinksLinkInput
+  logos: [ComponentElementsLogoInput]
+  testimonials: [ComponentElementsTestimonialInput]
+}
+
+input editComponentSectionsTestimonialsGroupInput {
+  id: ID
+  title: String
+  description: String
+  link: editComponentLinksLinkInput
+  logos: [editComponentElementsLogoInput]
+  testimonials: [editComponentElementsTestimonialInput]
+}
+
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Companies | CompaniesConnection | CompaniesAggregator | CompaniesGroupBy | CompaniesConnectionId | CompaniesConnection_id | CompaniesConnectionCreatedAt | CompaniesConnectionUpdatedAt | CompaniesConnectionCompany_name | CompaniesConnectionCompany_id | CompaniesConnectionCompany_api | CompaniesConnectionPublished_at | createCompanyPayload | updateCompanyPayload | deleteCompanyPayload | Global | updateGlobalPayload | deleteGlobalPayload | Holdings | HoldingsConnection | HoldingsAggregator | HoldingsAggregatorSum | HoldingsAggregatorAvg | HoldingsAggregatorMin | HoldingsAggregatorMax | HoldingsGroupBy | HoldingsConnectionId | HoldingsConnection_id | HoldingsConnectionCreatedAt | HoldingsConnectionUpdatedAt | HoldingsConnectionHolding_acquire | HoldingsConnectionAsset_type | HoldingsConnectionNumberof_shares | HoldingsConnectionShare_price | HoldingsConnectionHolding_purchase_date | HoldingsConnectionCompany | HoldingsConnectionUsers_permissions_user | HoldingsConnectionPublished_at | createHoldingPayload | updateHoldingPayload | deleteHoldingPayload | LeadFormSubmissions | LeadFormSubmissionsConnection | LeadFormSubmissionsAggregator | LeadFormSubmissionsGroupBy | LeadFormSubmissionsConnectionId | LeadFormSubmissionsConnection_id | LeadFormSubmissionsConnectionCreatedAt | LeadFormSubmissionsConnectionUpdatedAt | LeadFormSubmissionsConnectionEmail | LeadFormSubmissionsConnectionStatus | LeadFormSubmissionsConnectionLocation | createLeadFormSubmissionPayload | updateLeadFormSubmissionPayload | deleteLeadFormSubmissionPayload | Orders | OrdersConnection | OrdersAggregator | OrdersAggregatorSum | OrdersAggregatorAvg | OrdersAggregatorMin | OrdersAggregatorMax | OrdersGroupBy | OrdersConnectionId | OrdersConnection_id | OrdersConnectionCreatedAt | OrdersConnectionUpdatedAt | OrdersConnectionOrder_id | OrdersConnectionOrder_type | OrdersConnectionOrder_interest | OrdersConnectionOrder_pricing_type | OrdersConnectionShare_price | OrdersConnectionNumberof_shares | OrdersConnectionOrder_status | OrdersConnectionCompany | OrdersConnectionUser | OrdersConnectionPublished_at | createOrderPayload | updateOrderPayload | deleteOrderPayload | Page | PageConnection | PageAggregator | PageGroupBy | PageConnectionId | PageConnection_id | PageConnectionCreatedAt | PageConnectionUpdatedAt | PageConnectionShortName | PageConnectionMetadata | PageConnectionStatus | PageConnectionSlug | PageConnectionLocale | createPagePayload | updatePagePayload | deletePagePayload | Watchlist | WatchlistConnection | WatchlistAggregator | WatchlistGroupBy | WatchlistConnectionId | WatchlistConnection_id | WatchlistConnectionCreatedAt | WatchlistConnectionUpdatedAt | WatchlistConnectionCompany | WatchlistConnectionUser | WatchlistConnectionPublished_at | createWatchlistPayload | updateWatchlistPayload | deleteWatchlistPayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionPhone | createUserPayload | updateUserPayload | deleteUserPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | I18NLocale | ComponentElementsFeatureColumn | ComponentElementsFeatureRow | ComponentElementsFeature | ComponentElementsFooterSection | ComponentElementsLogos | ComponentElementsNotificationBanner | ComponentElementsPlan | ComponentElementsTestimonial | ComponentLayoutFooter | ComponentLayoutNavbar | ComponentLinksButtonLink | ComponentLinksButton | ComponentLinksLink | ComponentMetaMetadata | ComponentSectionsBottomActions | ComponentSectionsFeatureColumnsGroup | ComponentSectionsFeatureRowsGroup | ComponentSectionsHero | ComponentSectionsLargeVideo | ComponentSectionsLeadForm | ComponentSectionsPricing | ComponentSectionsRichText | ComponentSectionsTestimonialsGroup
+
+input InputID {
+  id: ID!
+}
+
+enum PublicationState {
+  LIVE
+  PREVIEW
+}
+
+type AdminUser {
+  id: ID!
+  username: String
+  firstname: String!
+  lastname: String!
+}
+
+type Query {
+  company(id: ID!, publicationState: PublicationState): Companies
+  companies(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Companies]
+  companiesConnection(sort: String, limit: Int, start: Int, where: JSON): CompaniesConnection
+  global(publicationState: PublicationState, locale: String): Global
+  holding(id: ID!, publicationState: PublicationState): Holdings
+  holdings(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Holdings]
+  holdingsConnection(sort: String, limit: Int, start: Int, where: JSON): HoldingsConnection
+  leadFormSubmission(id: ID!, publicationState: PublicationState): LeadFormSubmissions
+  leadFormSubmissions(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [LeadFormSubmissions]
+  leadFormSubmissionsConnection(sort: String, limit: Int, start: Int, where: JSON): LeadFormSubmissionsConnection
+  order(id: ID!, publicationState: PublicationState): Orders
+  orders(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Orders]
+  ordersConnection(sort: String, limit: Int, start: Int, where: JSON): OrdersConnection
+  page(id: ID!, publicationState: PublicationState): Page
+  pages(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState, locale: String): [Page]
+  pagesConnection(sort: String, limit: Int, start: Int, where: JSON, locale: String): PageConnection
+  watchlist(id: ID!, publicationState: PublicationState): Watchlist
+  watchlists(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Watchlist]
+  watchlistsConnection(sort: String, limit: Int, start: Int, where: JSON): WatchlistConnection
+  role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsRole]
+  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
+  user(id: ID!, publicationState: PublicationState): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsUser]
+  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile]
+  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
+  me: UsersPermissionsMe
+}
+
+type Mutation {
+  createCompany(input: createCompanyInput): createCompanyPayload
+  updateCompany(input: updateCompanyInput): updateCompanyPayload
+  deleteCompany(input: deleteCompanyInput): deleteCompanyPayload
+  updateGlobal(input: updateGlobalInput, locale: String): updateGlobalPayload
+  deleteGlobal(locale: String): deleteGlobalPayload
+  createHolding(input: createHoldingInput): createHoldingPayload
+  updateHolding(input: updateHoldingInput): updateHoldingPayload
+  deleteHolding(input: deleteHoldingInput): deleteHoldingPayload
+  createLeadFormSubmission(input: createLeadFormSubmissionInput): createLeadFormSubmissionPayload
+  updateLeadFormSubmission(input: updateLeadFormSubmissionInput): updateLeadFormSubmissionPayload
+  deleteLeadFormSubmission(input: deleteLeadFormSubmissionInput): deleteLeadFormSubmissionPayload
+  createOrder(input: createOrderInput): createOrderPayload
+  updateOrder(input: updateOrderInput): updateOrderPayload
+  deleteOrder(input: deleteOrderInput): deleteOrderPayload
+  createPage(input: createPageInput): createPagePayload
+  updatePage(input: updatePageInput): updatePagePayload
+  deletePage(input: deletePageInput): deletePagePayload
+  createWatchlist(input: createWatchlistInput): createWatchlistPayload
+  updateWatchlist(input: updateWatchlistInput): updateWatchlistPayload
+  deleteWatchlist(input: deleteWatchlistInput): deleteWatchlistPayload
+
+  """Create a new role"""
+  createRole(input: createRoleInput): createRolePayload
+
+  """Update an existing role"""
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """Delete an existing role"""
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """Create a new user"""
+  createUser(input: createUserInput): createUserPayload
+
+  """Update an existing user"""
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """Delete an existing user"""
+  deleteUser(input: deleteUserInput): deleteUserPayload
+
+  """Delete one file"""
+  deleteFile(input: deleteFileInput): deleteFilePayload
+  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+  forgotPassword(email: String!): UserPermissionsPasswordPayload
+  resetPassword(password: String!, passwordConfirmation: String!, code: String!): UsersPermissionsLoginPayload
+  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+  upload(refId: ID, ref: String, field: String, source: String, info: FileInfoInput, file: Upload!): UploadFile!
+  multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
+  updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
+  createGlobalLocalization(input: updateGlobalInput!): Global!
+  createPageLocalization(input: updatePageInput!): Page!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""A time string with format: HH:mm:ss.SSS"""
+scalar Time
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""The `Long` scalar type represents 52-bit integers"""
+scalar Long
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

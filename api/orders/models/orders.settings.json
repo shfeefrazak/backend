@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "name": "Orders",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "order_id": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "order_type": {
+      "type": "string",
+      "required": true
+    },
+    "order_interest": {
+      "type": "string"
+    },
+    "order_pricing_type": {
+      "type": "string",
+      "required": true
+    },
+    "share_price": {
+      "type": "decimal"
+    },
+    "numberof_shares": {
+      "type": "decimal",
+      "required": true
+    },
+    "order_status": {
+      "type": "integer"
+    },
+    "company": {
+      "model": "companies"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

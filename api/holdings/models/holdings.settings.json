@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "holdings",
+  "info": {
+    "name": "Holdings"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "holding_acquire": {
+      "type": "string",
+      "required": true
+    },
+    "asset_type": {
+      "type": "string",
+      "required": true
+    },
+    "numberof_shares": {
+      "type": "biginteger"
+    },
+    "share_price": {
+      "type": "decimal"
+    },
+    "holding_purchase_date": {
+      "type": "date",
+      "required": false
+    },
+    "company": {
+      "model": "companies"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}
